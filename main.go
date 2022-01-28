@@ -12,7 +12,7 @@ func main() {
 	if len(os.Args) == 3 {
 		app()
 	} else {
-		fmt.Println("\nArgs missing!\nUsage: 1st arg = fileName, 2nd arg = stringToSearch")
+		fmt.Println("\nArgs missing or too much!\nUsage: 1st arg = fileName, 2nd arg = stringToSearch")
 	}
 }
 
@@ -30,7 +30,7 @@ func app() {
 }
 
 func deliverErrorMessage() {
-	fmt.Println("Unable to search...")
+	fmt.Println("Unable to search... :(")
 }
 
 func getOccurrences(file *os.File, stringToSearchFor string) string {
