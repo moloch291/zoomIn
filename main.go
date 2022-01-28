@@ -1,14 +1,22 @@
 package main
 
 import (
-	"strconv"
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 func main() {
+	if len(os.Args) == 3 {
+		app()
+	} else {
+		fmt.Println("\nArgs missing!\nUsage: 1st arg = fileName, 2nd arg = stringToSearch")
+	}
+}
+
+func app() {
 	fileName, stringToSearchFor := os.Args[1], os.Args[2]
 	file, err := os.Open(fileName)
 	if err != nil {
@@ -38,7 +46,7 @@ func getOccurrences(file *os.File, stringToSearchFor string) string {
 	if err := scanner.Err(); err != nil {
 		fmt.Println(err)
 		deliverErrorMessage()
-		os.Exit(1)
+		os.Exit(0)
 	}
 	return lineNumbers
 }
@@ -46,8 +54,9 @@ func getOccurrences(file *os.File, stringToSearchFor string) string {
 func printResults(output string, stringToSearchFor string, fileName string) {
 	fmt.Println("\nSearch done! Results:")
 	if output != "" {
-		fmt.Println(
-			"\n'" + stringToSearchFor + "' " + "is presented in line(s) " + output[:len(output) - 2] + " in " + fileName)
+		result := "'" + stringToSearchFor + "' " + "is presented in line(s):\n\n" + output[:len(output) - 2] +
+			"\n\nin " + fileName
+		fmt.Println(result)
 	} else {
 		fmt.Println("The file doesn't contain", "'", stringToSearchFor, "'...")
 	}
