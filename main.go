@@ -13,14 +13,19 @@ func main() {
 	file, err := os.Open(fileName)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		deliverErrorMessage()
+		os.Exit(0)
 	}
 	defer file.Close()
-	output := reader(file, stringToSearchFor)
+	output := getOccurrences(file, stringToSearchFor)
 	printResults(output, stringToSearchFor, fileName)
 }
 
-func reader(file *os.File, stringToSearchFor string) string {
+func deliverErrorMessage() {
+	fmt.Println("Unable to search...")
+}
+
+func getOccurrences(file *os.File, stringToSearchFor string) string {
 	scanner := bufio.NewScanner(file)
 	lineNumbers := ""
 	lineNumber := 1
@@ -32,6 +37,7 @@ func reader(file *os.File, stringToSearchFor string) string {
 	}
 	if err := scanner.Err(); err != nil {
 		fmt.Println(err)
+		deliverErrorMessage()
 		os.Exit(1)
 	}
 	return lineNumbers
