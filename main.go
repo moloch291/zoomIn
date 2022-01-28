@@ -52,11 +52,9 @@ func getOccurrences(file *os.File, stringToSearchFor string) string {
 }
 
 func printResults(output string, stringToSearchFor string, fileName string) {
-	fmt.Println("\nSearch done! Results:")
+	fmt.Println("\nSearch done!\n" + "'" + stringToSearchFor + "' " + "is presented in line(s):\n")
 	if output != "" {
-		result := "'" + stringToSearchFor + "' " + "is presented in line(s):\n\n" + output[:len(output) - 2] +
-			"\n\nin " + fileName
-		fmt.Println(result)
+		fmt.Println(output[:len(output) - 2] + "\n\nin " + fileName)
 	} else {
 		fmt.Println("The file doesn't contain", "'", stringToSearchFor, "'...")
 	}
