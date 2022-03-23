@@ -31,7 +31,7 @@ func getOccurrences(file *os.File, stringToSearchFor string) string {
 	lineNumber := 1
 	for scanner.Scan() {
 		if strings.Contains(scanner.Text(), stringToSearchFor) {
-			lineNumbers += strconv.Itoa(lineNumber) + ", "
+			lineNumbers += strconv.Itoa(lineNumber) + ": " + scanner.Text() + "\n"
 		}
 		lineNumber++
 	}
@@ -44,9 +44,10 @@ func getOccurrences(file *os.File, stringToSearchFor string) string {
 }
 
 func printResults(output string, stringToSearchFor string, fileName string) {
-	fmt.Println("\nSearch done!\n" + "'" + stringToSearchFor + "' " + "is presented in line(s):\n")
+	fmt.Println("'" + stringToSearchFor + "' " + "is presented in " + fileName + " in line(s):\n")
 	if output != "" {
-		fmt.Println(output[:len(output) - 2] + "\n\nin " + fileName)
+		fmt.Println(output[:len(output) - 2])
+		fmt.Println("\nSearch done!")
 	} else {
 		fmt.Println("The file doesn't contain", "'", stringToSearchFor, "'...")
 	}
